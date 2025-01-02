@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Mi Aplicación{% endblock %}</title>
+</head>
+<body>
+  {% block header %}
+  <nav>
+    <h1>Todo list</h1>
+    <ul>
+      {% if g.user %}
+      <li><span>{{ g.user['username'] }}</span></li>
+      <li><a href="{{ url_for('auth.logout') }}">cerrar sesión</a></li>
+      {% else %}
+      <li><a href="{{ url_for('auth.register') }}">registrarse</a></li>
+      <li><a href="{{ url_for('auth.login') }}">iniciar sesión</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endblock %}
+
+  {% block content %}
+  <section class="content">
+    {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+    {% endfor %}
+  </section>
+  {% endblock %}
+</body>
+</html>
